@@ -12,6 +12,8 @@ on init
     mount_all /vendor/etc/charger_fw_fstab.qti --early
     write /sys/class/backlight/panel0-backlight/brightness 200
     setprop sys.usb.configfs 1
+    setprop prepdecrypt.loglevel 2
+    setprop prepdecrypt.setpatch true
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -30,11 +32,11 @@ on boot
     setprop sys.usb.config mtp,adb
 
 on property:modem.partition.mounted=1
-    insmod /vendor/lib/modules/q6_pdr_dlkm.ko
-    insmod /vendor/lib/modules/q6_notifier_dlkm.ko
-    insmod /vendor/lib/modules/snd_event_dlkm.ko
-    insmod /vendor/lib/modules/apr_dlkm.ko
-    insmod /vendor/lib/modules/adsp_loader_dlkm.ko
+    insmod /vendor/lib/modules/1.1/q6_pdr_dlkm.ko
+    insmod /vendor/lib/modules/1.1/q6_notifier_dlkm.ko
+    insmod /vendor/lib/modules/1.1/snd_event_dlkm.ko
+    insmod /vendor/lib/modules/1.1/apr_dlkm.ko
+    insmod /vendor/lib/modules/1.1/adsp_loader_dlkm.ko
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
 
